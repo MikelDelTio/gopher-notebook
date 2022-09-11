@@ -6,6 +6,7 @@ The following page hosts the best practises and conventions about Go primitive t
 
 - [Naming](primitive-types.md#naming)
 - [Declaration](primitive-types.md#declaration)
+- [Constants](primitive-types.md#constants)
 
 ## Naming
 
@@ -14,7 +15,7 @@ separated with a single capitalized letter. The first letter can be uppercase or
 item is accessible or not outside the package.
 
 This rule must be followed even when it breaks conventions in other languages, like the use of capital letters and
-underscores to name constants.
+underscores to name [constants](primitive-types.md#constants).
 
 ```go
 var first_name string // Bad
@@ -114,4 +115,40 @@ func main() {
 Sources:
 
 - [Learning Go by Jon Bodner](https://www.oreilly.com/library/view/learning-go/9781492077206/)
+- [The Go Programming Language by Alan A. A. Donovan and Brian W. Kernighan](https://www.gopl.io)
+
+## Constants
+
+Constants in Go are like in any other programming language: `Numeric`, `Boolean`, `String`, `Rune`
+or `Built-in Function` type variables whose expression is evaluated at compile time, and could not be changed at run
+time.
+
+However, they are not named with uppercase characters separated by underscores. Instead, camel case naming convention is
+employed, just like for all other [variables](primitive-types.md#naming). These names should be descriptive, making it
+clear what the value represents.
+
+```go
+const STATUS_OK = 200    // Bad
+const StatusOk int = 200 // Bad
+const StatusOK = 200     // Good
+```
+
+As can be seen, the underlying type is excluded both from name and declaration, again, just like for all
+other [variables](primitive-types.md#declaration), but in this case the Go compiler not only infers the type, but also
+performs an automatic conversion, if the value can be represented in the target type at least.
+
+```go
+func main() {
+	const num1 float32 = 99.99
+	const num2 int = 2               // Error, mismatched types float32 and int
+	const num2 = 2                   // Good, prints 101,99
+	fmt.Println("Total:", num1+num2) 
+}
+```
+
+Sources:
+
+- [Effective Go](https://go.dev/doc/effective_go#constants)
+- [Learning Go by Jon Bodner](https://www.oreilly.com/library/view/learning-go/9781492077206/)
+- [Pro Go by Adam Freeman](https://link.springer.com/book/10.1007/978-1-4842-7355-5)
 - [The Go Programming Language by Alan A. A. Donovan and Brian W. Kernighan](https://www.gopl.io)
