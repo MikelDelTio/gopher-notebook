@@ -5,3 +5,7 @@ clean, idiomatic code.
 
 A lot of these are general guidelines from official documentation, while others extend upon external resources, but all
 of them are referenced by a footnote, indicating the original source.
+
+## Table of Contents
+
+- [Primitive Types](notes/primitive-types.md)
