@@ -5,6 +5,7 @@ The following page hosts the best practises and conventions about Go primitive t
 ## Table of Contents
 
 - [Naming](primitive-types.md#naming)
+- [Declaration](primitive-types.md#declaration)
 
 ## Naming
 
@@ -52,3 +53,65 @@ Sources:
 - [Learning Go by Jon Bodner](https://www.oreilly.com/library/view/learning-go/9781492077206/)
 - [The Go Programming Language by Alan A. A. Donovan and Brian W. Kernighan](https://www.gopl.io)
 - [Uber Go Style Guide](https://github.com/uber-go/guide/blob/master/style.md#avoid-using-built-in-names)
+
+## Declaration
+
+Go provides several ways to declare variables, both primitive and composite types, and each one communicates something
+about how it is used, but the most common convention within functions is to use the ```:=``` operator. Just follow the
+KISS (keeping it simple stupid) design principle whenever possible.
+
+```go
+var hello string = "world" // Bad
+var hello = "world"        // Bad
+hello := "world"           // Good
+```
+
+Even so, there are some cases in which it should not be used, such as to initialize a variable to its zero value, where
+the long form style is recommended. It shows clearer the intended zero value.
+
+```go
+found := false // Bad
+var found bool // Good
+```
+
+The long form style is also the suitable way when the default type for the assignment is not the wanted type for the
+variable. It defines in a more idiomatic way, without requiring an explicit type conversion.
+
+```go
+buffer := byte(256)   // Bad
+var buffer byte = 256 // Good
+```
+
+One last tip, pay special attention to the scope when using the ```:=``` operator, if you don't want to shadow the
+variable at least. That is, this operator allows to assign values to both new and existing variables, so it could create
+a new variable or reuse existing one, depending on the code block.
+
+```go
+func main() {
+	x := 1
+	if true {
+		x := 2
+		fmt.Println(x) // Prints 2
+	}
+	fmt.Println(x) // Prints 1
+}
+```
+
+In those cases, explicitly declare the conflicting variable with the var keyword, and use the ```=``` operator to update
+its value every time. It looks clearer which variables are new.
+
+```go
+func main() {
+	var x = 1
+	if true {
+		x = 2
+		fmt.Println(x) // Prints 2
+	}
+	fmt.Println(x) // Prints 2
+}
+```
+
+Sources:
+
+- [Learning Go by Jon Bodner](https://www.oreilly.com/library/view/learning-go/9781492077206/)
+- [The Go Programming Language by Alan A. A. Donovan and Brian W. Kernighan](https://www.gopl.io)
