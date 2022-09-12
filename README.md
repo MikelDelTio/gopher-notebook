@@ -9,3 +9,4 @@ of them are referenced by a footnote, indicating the original source.
 ## Table of Contents
 
 - [Primitive Types](notes/primitive-types.md)
+- [Composite Types](notes/composite-types.md)
