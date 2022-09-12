@@ -7,6 +7,7 @@ The following page hosts the best practises and conventions about Go primitive t
 - [Naming](primitive-types.md#naming)
 - [Declaration](primitive-types.md#declaration)
 - [Constants](primitive-types.md#constants)
+- [Enumerations](primitive-types.md#enumerations)
 
 ## Naming
 
@@ -151,4 +152,57 @@ Sources:
 - [Effective Go](https://go.dev/doc/effective_go#constants)
 - [Learning Go by Jon Bodner](https://www.oreilly.com/library/view/learning-go/9781492077206/)
 - [Pro Go by Adam Freeman](https://link.springer.com/book/10.1007/978-1-4842-7355-5)
+- [The Go Programming Language by Alan A. A. Donovan and Brian W. Kernighan](https://www.gopl.io)
+
+## Enumerations
+
+Go does not have support for enumerations like in the most programming languages, that is, types that only contain a
+limited set of values. Instead, it has iota, which allows to assign an increasing value to a set of custom type int
+constants.
+
+```go
+type Season int64
+
+const (
+	Summer Season = iota // Value: 0
+	Autumn               // Value: 1
+	Winter               // Value: 2
+	Spring               // Value: 3
+)
+```
+
+However, it should not be used as common enumerations, since they are referred by value rather than by name, so in case
+of inserting a new identifier in the middle list, all the subsequent ones will be affected, and therefore, the
+application could fail.
+
+```go
+type Season int64
+
+const (
+	None   Season = iota // Value: 0
+	Summer               // Value: 1
+	Autumn               // Value: 2
+	Winter               // Value: 3
+	Spring               // Value: 4
+)
+```
+
+Thus, the best practise for enumerations is to explicitly write the constant values instead of using iota, since allows
+to insert new values at any moment without the risk of breaking the application. Leave iota for internal purposes and
+just to differentiate the type of set of values, but not the value itself.
+
+```go
+type Season int64
+
+const (
+	Summer Season = 0
+	Autumn        = 1
+	Winter        = 2
+	Spring        = 3
+)
+```
+
+Sources:
+
+- [Learning Go by Jon Bodner](https://www.oreilly.com/library/view/learning-go/9781492077206/)
 - [The Go Programming Language by Alan A. A. Donovan and Brian W. Kernighan](https://www.gopl.io)
