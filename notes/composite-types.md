@@ -8,6 +8,8 @@ The following page hosts the best practises and conventions about Go composite t
     - [Initialization](composite-types.md#initialization)
     - [Fields Ordering](composite-types.md#fields-ordering)
     - [Marshalling & Unmarshalling](composite-types.md#marshalling--unmarshalling)
+- [Maps](composite-types.md#maps)
+    - [Declaration](composite-types.md#declaration)
 
 ## Structs
 
