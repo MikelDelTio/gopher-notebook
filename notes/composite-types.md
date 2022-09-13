@@ -10,6 +10,8 @@ The following page hosts the best practises and conventions about Go composite t
     - [Marshalling & Unmarshalling](composite-types.md#marshalling--unmarshalling)
 - [Maps](composite-types.md#maps)
     - [Declaration](composite-types.md#declaration)
+- [Interfaces](composite-types.md#interfaces)
+    - [Naming](composite-types.md#interfaces)
 
 ## Structs
 
@@ -176,3 +178,51 @@ elements. In that case, the preferred way is to use map literals to initialize t
 Sources:
 
 - [Uber Go Style Guide](https://github.com/uber-go/guide/blob/master/style.md#initializing-maps)
+
+## Interfaces
+
+The following page hosts the best practises and conventions about Go interfaces.
+
+### Naming
+
+Not by obligation but by convention, one method interfaces are named with the name of the method ending in "er". Avoid
+the temptation of using ```I``` prefix or ```Interface``` suffix, since Go bets on an idiomatic style that favors the
+readability, even if it breaks conventions in other languages.
+
+```go
+type Reader interface {
+	Read(p []byte) (n int, err error)
+}
+
+type Writer interface {
+	Write(p []byte) (n int, err error)
+}
+
+type Closer interface {
+	Close() error
+}
+```
+
+However, there are some interfaces, like the ones in the example, that have a canonical name, signature and meaning in
+Go's universe, so the best practise is to don't use those names unless it has the same signature and meaning.
+
+How could it be otherwise, composite interfaces also follows a similar naming rule: they are named with the name of the
+methods, except the last one, which ends in "er".
+
+```go
+type ReadWriter interface {
+	Reader
+	Writer
+}
+
+type ReadWriteCloser interface {
+	Reader
+	Writer
+	Closer
+}
+```
+
+Sources:
+
+- [Effective Go](https://go.dev/doc/effective_go#interface-names)
+- [Learning Go by Jon Bodner](https://www.oreilly.com/library/view/learning-go/9781492077206/)
