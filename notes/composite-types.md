@@ -6,6 +6,7 @@ The following page hosts the best practises and conventions about Go composite t
 
 - [Structs](composite-types.md#structs)
     - [Initialization](composite-types.md#initialization)
+    - [Fields Ordering](composite-types.md#fields-ordering)
     - [Marshalling & Unmarshalling](composite-types.md#marshalling--unmarshalling)
 
 ## Structs
@@ -51,6 +52,63 @@ Sources:
 - [Learning Go by Jon Bodner](https://www.oreilly.com/library/view/learning-go/9781492077206/)
 - [The Go Programming Language by Alan A. A. Donovan and Brian W. Kernighan](https://www.gopl.io)
 - [Uber Go Style Guide](https://github.com/uber-go/guide/blob/master/style.md#use-field-names-to-initialize-structs)
+
+### Fields Ordering
+
+Properly ordering struct fields allows to improve both application’s performance and memory usage, due to modern CPU
+works efficiently when the data is naturally aligned. Let's explain this.
+
+First, computers stores data at an address equals to the multiple of the data size. That is, a 2 bytes data can be
+stored in 0, 2 or 4 bytes address, while a 4 bytes data can be stored in a 0, 4 or 8 bytes. Go follows the "required
+alignment" methodology, so a struct field memory address size is equals to the memory required by the largest field in
+the struct. The empty bytes between the memory addresses is called padding.
+
+```go
+type customer struct {
+	verified bool    // size: 1 byte,  padding: 7 bytes
+	id       float64 // size: 8 bytes, padding: 0 bytes
+	age      int32   // size: 4 bytes, padding: 4 bytes
+}
+
+Total memory consuption: 24 bytes
+```
+
+However, multiple fields can be stored in the same memory address, as long as their size is less than the required
+alignment. Therefore, properly ordering struct fields allows to reduce the memory consumption.
+
+```go
+type customer struct {
+	id       float64 // size: 8 bytes, padding: 0 bytes
+	verified bool    // size: 1 byte,  padding: 3 bytes
+	age      int32   // size: 4 bytes, padding: 0 bytes
+}
+
+Total memory consuption: 16 bytes
+```
+
+On the other hand, CPU reads and writes data from memory addresses in the multiple of its word size. In a 32bit
+architecture a word is equivalent to 4 byte memory block, while in a 64bit architecture the memory block is 8 byte.
+Thus:
+
+- When a struct field memory address size is smaller than the CPU word, the processor has to use one cycle to access
+  field.
+- When a struct field memory address size is greater than the CPU word, the processor has to use two or more cycles to
+  access field, depending on its size.
+- When a memory address stores multiple struct fields and its size is equals or smaller to the CPU word, the processor
+  can use a single cycle to access as many fields as fit in a single world.
+
+Therefore, if a structure is not optimally word-aligned, the CPU has to perform extra operations to load the value into
+a register so that it can be used.
+
+One last tip, tools like [fieldalignment](https://pkg.go.dev/golang.org/x/tools/go/analysis/passes/fieldalignment) could
+be so useful to find structs to optimize on your codebase.
+
+Sources:
+
+- [awstip.com](https://awstip.com/optimizing-memory-by-changing-the-order-of-struct-field-485106504087)
+- [betterprogramming.pub](https://betterprogramming.pub/how-to-speed-up-your-struct-in-golang-76b846209587)
+- [itnext.io](https://itnext.io/structure-size-optimization-in-golang-alignment-padding-more-effective-memory-layout-linters-fffdcba27c61)
+- [wagslane.dev](https://wagslane.dev/posts/go-struct-ordering/)
 
 ### Marshalling & Unmarshalling
 
