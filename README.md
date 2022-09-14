@@ -10,3 +10,4 @@ of them are referenced by a footnote, indicating the original source.
 
 - [Primitive Types](notes/primitive-types.md)
 - [Composite Types](notes/composite-types.md)
+- [Errors](notes/errors.md)
