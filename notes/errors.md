@@ -5,6 +5,7 @@ The following page hosts the best practises and conventions about Go errors.
 ## Table of Contents
 
 - [Handling](errors.md#handling)
+- [Wrapping](errors.md#wrapping)
 
 ## Handling
 
@@ -81,3 +82,63 @@ Sources:
 
 - [Learning Go by Jon Bodner](https://www.oreilly.com/library/view/learning-go/9781492077206/)
 - [The Go Programming Language by Alan A. A. Donovan and Brian W. Kernighan](https://www.gopl.io)
+
+## Wrapping
+
+Error wrapping consist on providing additional context to an error before propagating it, such as the name of the
+function that received the error, or the operation it was trying to perform, so the callers have more information to
+take more informed decisions. Thus, these are some advices about whether and how an error should wrap the original.
+
+First, it is bad practice to wrap an error on every calling function to form an error chain that mimics a stacktrace.
+That goes against Go's error philosophy. Instead, return the original error as-is, as long as the underlying error
+message provides enough information to track down where it came from.
+
+```go
+func readFile(name string) (err error) {
+	file, err := os.Open(name)
+	if err != nil {
+		return err
+	}
+	...
+}
+
+error: open /home/workspace/test.file: The system cannot find the file specified
+```
+
+If not so, add useful context to the error message where possible, picking between the ```%w``` or ```%v``` verbs
+on ```fmt.Errorf()``` function.
+
+Thus, use the ```%w``` verb when the caller should have access to the underlying original error, since it provides
+an ```Unwrap``` method to recover it. This is a good default for the 99.99% of cases, except when you must support an
+1.13 older version of Go, or [xerrors](https://golang.org/x/xerrors) is not available. Don't forget to properly document
+those cases in which the wrapped error is a known var or type, so that the caller can get the most out of it.
+
+```go
+func fromJSON(data []byte) (*User, error) {
+	var user User
+	err := json.Unmarshal(data, &user)
+	if err != nil {
+		return nil, fmt.Errorf("user from JSON: %w", err)
+	}
+	return &user, nil
+}
+```
+
+Finally, use the ```%v``` to obfuscate the underlying error and hide implementation details, so that the caller will be
+unable to match it.
+
+```go
+func fromJSON(data []byte) (*User, error) {
+	var user User
+	err := json.Unmarshal(data, &user)
+	if err != nil {
+		return nil, fmt.Errorf("user from JSON: %v", err)
+	}
+	return &user, nil
+}
+```
+
+Sources:
+
+- [The Go Blog](https://go.dev/blog/go1.13-errors)
+- [Uber Go Style Guide](https://github.com/uber-go/guide/blob/master/style.md#error-wrapping)
