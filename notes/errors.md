@@ -7,6 +7,7 @@ The following page hosts the best practises and conventions about Go errors.
 - [Handling](errors.md#handling)
 - [Wrapping](errors.md#wrapping)
 - [Panic & Recover](errors.md#panic--recover)
+- [Exit](errors.md#exit)
 
 ## Handling
 
@@ -211,4 +212,41 @@ func parseJWT(tokenString string) (*Token, error) {
 Sources:
 
 - [Learning Go by Jon Bodner](https://www.oreilly.com/library/view/learning-go/9781492077206/)
+- [Uber Go Style Guide](https://github.com/uber-go/guide/blob/master/style.md#dont-panic)
+
+## Exit
+
+Go provides the ```os.Exit(1)``` and ```log.Fatal*``` functions to immediately finalize a program, but the latter is
+recommended since also print the error message.
+
+In any case, it should be used just in the ```main``` function, and at most once. Multiple exit sentences complicates
+the control flow and makes difficult to debug errors, which ultimately hurts code readability and maintainability.
+Testing is also affected as there is more than one critical point of failure to manage.
+
+```go
+func run() error {
+	config, err := readConfigFromEnvironment()
+	if err != nil {
+		return err
+	}
+
+	fileContent, err := readFile(config.FileName)
+	if err != nil {
+		return err
+	}
+
+	// ...
+}
+
+func main() {
+	err := run()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+}
+```
+
+Sources:
+
 - [Uber Go Style Guide](https://github.com/uber-go/guide/blob/master/style.md#dont-panic)
