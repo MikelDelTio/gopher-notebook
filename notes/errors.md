@@ -6,6 +6,7 @@ The following page hosts the best practises and conventions about Go errors.
 
 - [Handling](errors.md#handling)
 - [Wrapping](errors.md#wrapping)
+- [Panic & Recover](errors.md#panic--recover)
 
 ## Handling
 
@@ -15,7 +16,7 @@ errors, by returning an error type parameters as the last return value for a fun
 necessary, but it is a convention among the Go's community.
 
 Thus, the calling function is responsible for checking the return error argument, comparing it to nil, and taking
-appropriate action, such as propagate it, so that becomes a failure of the calling routine, retry the failed operation,
+appropriate action, such as propagate it, so that b ecomes a failure of the calling routine, retry the failed operation,
 probably with a delay between tries, or print the error and stop the program gracefully, an extremely discouraged
 option, except for the main package of a program.
 
@@ -142,3 +143,72 @@ Sources:
 
 - [The Go Blog](https://go.dev/blog/go1.13-errors)
 - [Uber Go Style Guide](https://github.com/uber-go/guide/blob/master/style.md#error-wrapping)
+
+## Panic & Recover
+
+A panic is unexpected situation, such as a programming error (accessing out of range of an array) or an environmental
+problem (out of disk space), where Go runtime is unable handled gracefully and terminates the running program.
+
+```go
+func main() {
+	characters := []string{"Anakin Skywalker", "Luke Skywalker", "Leia Organa", "Han Solo", "Grogu"}
+	fmt.Println("My favorite Star Wars character is:", characters[len(characters)])
+}
+
+panic: runtime error: index out of range [5] with length 5
+```
+
+Although it is possible to programmatically panic, this is something that must be avoided, whatever it takes. When an
+error occurs, just return it and allow the caller to decide how to handle it, as described on
+the[wrapping section](#wrapping).
+
+In the case in which an error is irrecoverable and requires to terminate the running program, the best practise is to
+handle it in the ```main``` function, log the error message and end the execution using the ```log.Fatal*``` command.
+
+```go
+func main() {
+	file, err := readFile("random.json")
+	if err != nil {
+		panic(err)     // Bad
+		log.Fatal(err) // Good
+	}
+	// ...
+}
+```
+
+One last tip, Go provides a recover function to capture a panic, but this should not be used to emulate an exception
+base error handling strategy. A program must panic only when something irrecoverable happens, so be careful about trying
+to continue program execution, it would probably fail again. Use the recover capabilities to gracefully handle these
+situations, for example, to log the situation and shut down using the ```log.Fatal*``` command.
+
+```go
+func main() {
+	defer func() {
+		if err := recover(); r != nil {
+			log.Fatal(err)
+		}
+	}()
+	panic("something irrecoverable happens")
+}
+```
+
+Nonetheless, there is one situation where recovering from a panic and continuing execution can be useful, and that is to
+avoid panic escapes a library boundaries. A library should never end a program, that is a decision that corresponds to
+the main program, so use the recover function to capture the panic, convert into an error, and return it to signal
+failure.
+
+```go
+func parseJWT(tokenString string) (*Token, error) {
+	defer func() {
+		if r := recover(); r != nil {
+			return nil, errors.New("Error: ", r)
+		}
+	}()
+	// ...
+}
+```
+
+Sources:
+
+- [Learning Go by Jon Bodner](https://www.oreilly.com/library/view/learning-go/9781492077206/)
+- [Uber Go Style Guide](https://github.com/uber-go/guide/blob/master/style.md#dont-panic)
