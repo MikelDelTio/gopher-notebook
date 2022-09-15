@@ -89,7 +89,7 @@ const (
 )
 ```
 
-Thus, the best practise for enumerations is to explicitly write the constant values instead of using iota, since allows
+Thus, the best practise for enumerations is to explicitly declare the constant values instead of using iota, since allows
 to insert new values at any moment without the risk of breaking the application. Leave iota for internal purposes and
 just to differentiate the type of set of values, but not the value itself.
 
