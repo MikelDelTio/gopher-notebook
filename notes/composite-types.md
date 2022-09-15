@@ -5,11 +5,11 @@ The following page hosts the best practises and conventions about Go composite t
 ## Table of Contents
 
 - [Structs](composite-types.md#structs)
-    - [Initialization](composite-types.md#initialization)
-    - [Fields Ordering](composite-types.md#fields-ordering)
-    - [Marshalling & Unmarshalling](composite-types.md#marshalling--unmarshalling)
+    - [Initialization](composite-types.md#structs---initialization)
+    - [Fields Ordering](composite-types.md#structs---fields-ordering)
+    - [Marshalling & Unmarshalling](composite-types.md#structs---marshalling--unmarshalling)
 - [Maps](composite-types.md#maps)
-    - [Declaration](composite-types.md#declaration)
+    - [Initialization](composite-types.md#maps---initialization)
 - [Interfaces](composite-types.md#interfaces)
     - [Naming](composite-types.md#interfaces)
 
@@ -17,7 +17,7 @@ The following page hosts the best practises and conventions about Go composite t
 
 The following section hosts the best practises and conventions about Go structs.
 
-### Initialization
+### Structs - Initialization
 
 Go provides several ways to initialize a struct, but the recommendation is to use the map literal style, in which both
 the name and value of the desired fields must be explicitly defined. Not declared fields get its zero value.
@@ -57,7 +57,7 @@ Sources:
 - [The Go Programming Language by Alan A. A. Donovan and Brian W. Kernighan](https://www.gopl.io)
 - [Uber Go Style Guide](https://github.com/uber-go/guide/blob/master/style.md#use-field-names-to-initialize-structs)
 
-### Fields Ordering
+### Structs - Fields Ordering
 
 Properly ordering struct fields allows to improve both application’s performance and memory usage, due to modern CPU
 works efficiently when the data is naturally aligned. Let's explain this.
@@ -114,7 +114,7 @@ Sources:
 - [itnext.io](https://itnext.io/structure-size-optimization-in-golang-alignment-padding-more-effective-memory-layout-linters-fffdcba27c61)
 - [wagslane.dev](https://wagslane.dev/posts/go-struct-ordering/)
 
-### Marshalling & Unmarshalling
+### Structs - Marshalling & Unmarshalling
 
 Go provides tags, that is, one or more key/pair values separated by spaces, to define how structs should be marshalled
 and unmarshalled to/from JSON. These tags allow to specify the name of the JSON field that should be associated with the
@@ -140,13 +140,12 @@ Sources:
 
 ## Maps
 
-The following page hosts the best practises and conventions about Go maps.
+The following section hosts the best practises and conventions about Go maps.
 
-### Declaration
+### Maps - Initialization
 
-As with [variables](primitive-types.md#declaration), Go provides several ways to declare a map, but the recommendation
-is to use ```make(..)``` function, even for empty maps, since shows clearer the intended value and could prevent
-accidental errors produced by writing on a nil map.
+Go provides several ways to initialize a map, but the recommendation is to use ```make(..)``` function, even for empty
+maps, since shows clearer the intended value and could prevent accidental errors produced by writing on a nil map.
 
 ```go
 	var myMap map[string]int      // Bad, map is will panic on writes
@@ -181,9 +180,9 @@ Sources:
 
 ## Interfaces
 
-The following page hosts the best practises and conventions about Go interfaces.
+The following section hosts the best practises and conventions about Go interfaces.
 
-### Naming
+### Interfaces - Naming
 
 Not by obligation but by convention, one method interfaces are named with the name of the method ending in "er". Avoid
 the temptation of using ```I``` prefix or ```Interface``` suffix, since Go bets on an idiomatic style that favors the
