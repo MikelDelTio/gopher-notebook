@@ -32,9 +32,8 @@ const StatusOK = 200     // Good
 
 ### Constants - Declaration
 
-Again, just like for all other [variables](program-structure.md#variables---declaration), the best practise is to
-exclude the underlying type both from name and declaration in Go constants, but in this case not only because the
-compiler infers the type, but also because performs an automatic conversion, if the value can be represented in the
+It is a best practise to exclude the underlying type both from name and declaration in Go constants, not only because
+the compiler infers the type, but also because performs an automatic conversion, if the value can be represented in the
 target type at least.
 
 ```go
