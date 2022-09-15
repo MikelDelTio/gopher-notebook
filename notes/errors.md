@@ -13,11 +13,11 @@ The following page hosts the best practises and conventions about Go errors.
 
 Go's philosophy is that failure is part of normal operation, and errors should be treated as first-class citizens. For
 this reason, and unlike exception-based languages, it takes advance of the support for multiple return values to handle
-errors, by returning an error type parameters as the last return value for a function. The latter is not strictly
+it, by returning an error type parameter as the last return value for a function. The latter is not strictly
 necessary, but it is a convention among the Go's community.
 
 Thus, the calling function is responsible for checking the return error argument, comparing it to nil, and taking
-appropriate action, such as propagate it, so that b ecomes a failure of the calling routine, retry the failed operation,
+appropriate action, such as propagate it, so that becomes a failure of the calling routine, retry the failed operation,
 probably with a delay between tries, or print the error and stop the program gracefully, an extremely discouraged
 option, except for the main package of a program.
 
@@ -96,7 +96,7 @@ That goes against Go's error philosophy. Instead, return the original error as-i
 message provides enough information to track down where it came from.
 
 ```go
-func readFile(name string) (err error) {
+func readFile(name string) error {
 	file, err := os.Open(name)
 	if err != nil {
 		return err
