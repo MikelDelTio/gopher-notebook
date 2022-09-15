@@ -11,7 +11,7 @@ The following page hosts the best practises and conventions about Go composite t
 - [Maps](composite-types.md#maps)
     - [Initialization](composite-types.md#maps---initialization)
 - [Interfaces](composite-types.md#interfaces)
-    - [Naming](composite-types.md#interfaces)
+    - [Naming](composite-types.md#interfaces---naming)
 
 ## Structs
 
