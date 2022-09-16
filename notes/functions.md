@@ -6,6 +6,7 @@ The following page hosts the best practises and conventions about Go functions.
 
 - [Naming](functions.md#naming)
 - [Named Result Parameters](functions.md#named-result-parameters)
+- [Naked Returns](functions.md#naked-returns)
 
 ## Naming
 
@@ -31,7 +32,7 @@ Sources:
 ## Named Result Parameters
 
 Go allows to specify names to the result parameters, which automatically are pre-declared and initialized with their
-types zero values when the function begins, and it can be returned using a naked return statement.
+types zero values when the function begins, and it can be returned using a [naked return statement](#naked-returns).
 
 ```go
 func concat(str1, str2 string) (result string) {
@@ -92,4 +93,38 @@ func readFile(name string) (err error) {
 Sources:
 
 - [CodeReviewComments](https://github.com/golang/go/wiki/CodeReviewComments#named-result-parameters)
+- [Learning Go by Jon Bodner](https://www.oreilly.com/library/view/learning-go/9781492077206/)
+
+## Naked Returns
+
+A naked return is a return statement without arguments in which named return values are automatically returned.
+
+```go
+func sub(a, b int) (result int) {
+	result = a - b
+	return
+}
+```
+
+This return style is strongly discouraged, since makes the code base even more confusing than the [named result
+parameters](#named-result-parameters), difficulting the readability and maintainability.
+
+On the one hand, it looks like the function does not return values, when it does. On the other hand, makes it hard to
+understand what values are actually returned, forcing you to read backwards the entire code base to find the last
+assignments of the variables.
+
+```go
+func getRandomNumber() (result int) {
+	result = rand.Intn(100)
+	if result > 16 {
+		result = result + 256
+	} else {
+		result = 512
+	}
+	return
+}
+```
+
+Sources:
+
 - [Learning Go by Jon Bodner](https://www.oreilly.com/library/view/learning-go/9781492077206/)
