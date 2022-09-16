@@ -61,7 +61,7 @@ Sources:
 
 ### Variables - Declaration
 
-Go provides several ways to declare variables, both primitive and composite types, and each one communicates something
+Go provides several ways to declare variables, both basic data and composite types, and each one communicates something
 about how it is used, but the most common convention within functions is to use the ```:=``` operator. Just follow the
 KISS (keeping it simple stupid) design principle whenever possible.
 
