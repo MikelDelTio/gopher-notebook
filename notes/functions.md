@@ -7,6 +7,7 @@ The following page hosts the best practises and conventions about Go functions.
 - [Naming](functions.md#naming)
 - [Named Result Parameters](functions.md#named-result-parameters)
 - [Naked Returns](functions.md#naked-returns)
+- [Init](functions.md#init)
 
 ## Naming
 
@@ -128,3 +129,34 @@ func getRandomNumber() (result int) {
 Sources:
 
 - [Learning Go by Jon Bodner](https://www.oreilly.com/library/view/learning-go/9781492077206/)
+
+## Init
+
+Go provides a lifecycle hook named ```init```, a package level function that takes no parameters, returns no values, and
+runs the first time the package is loaded. As its name suggests, it is used to initialize package level variables before
+business functions are executed, usually with the aim of reducing its execution time.
+
+```go
+var db *Database
+
+func init() {
+	conn, err := sql.Open("postgres", "connectionURI")
+	if err != nil {
+		log.Fatal(err)
+	}
+	db = &Database{Connection: conn}
+}
+```
+
+Unfortunately, it should not be used. It is a bad practice to have mutable states at the top level of a package, since
+makes harder to understand how the application works. That is, functions no longer depend only on their input
+parameters, but also on external values.
+
+Moreover, this data could be modified concurrently by other executions or even functions, producing data races that lead
+to unexpected errors, and Go does not provide a way to enforce that value does not change after first assignment
+on```init``` function.
+
+Sources:
+
+- [Learning Go by Jon Bodner](https://www.oreilly.com/library/view/learning-go/9781492077206/)
+- [Uber Go Style Guide](https://github.com/uber-go/guide/blob/master/style.md#avoid-init)
