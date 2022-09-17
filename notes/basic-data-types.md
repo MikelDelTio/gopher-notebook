@@ -4,11 +4,57 @@ The following page hosts the best practises and conventions about Go basic data 
 
 ## Table of Contents
 
+- [Integers](basic-data-types.md#integers)
+    - [Typing](basic-data-types.md#integers---typing)
 - [Constants](basic-data-types.md#constants)
     - [Naming](basic-data-types.md#constants---naming)
     - [Declaration](basic-data-types.md#constants---declaration)
 - [Enumerations](basic-data-types.md#enumerations)
     - [Declaration](basic-data-types.md#enumerations---declaration)
+
+## Integers
+
+The following section hosts the best practises and conventions about Go integers.
+
+### Integers - Typing
+
+Go provides multiple types of signed and unsigned integers, all of them from 1 to 8 bytes, which can be
+overwhelming-decor at first. That's why the following guidelines it is so recommended to decide which one to use
+for each situation.
+
+| Name   | Range                                       |
+|--------|---------------------------------------------|
+| int8   | –128 to 127                                 |
+| int16  | –32768 to 32767                             |
+| int32  | –2147483648 to 2147483647                   |
+| int64  | –9223372036854775808 to 9223372036854775807 |
+| uint8  | 0 to 255                                    |
+| uint16 | 0 to 65535                                  |
+| uint32 | 0 to 4294967295                             |
+| uint64 | 0 to 18446744073709551615                   |
+
+First of all, remember that type just should be explicitly specified to initialize a variable to its zero value, or
+when the default type for the assignment is not the wanted type for the variable.
+
+Thus, if the use case absolutely requires a well-defined integer of a specific size or sign, for example, to implement a
+particular network protocol specification, or to support a certain device architecture, use it, but never for trivial
+reasons or personal preferences.
+
+```go
+// package socket. cmsghdr_linux_32bit.go 
+func (h *cmsghdr) set(l, lvl, typ int) {
+	h.Len = uint32(l)
+	h.Level = int32(lvl)
+	h.Type = int32(typ)
+}
+
+// package socket. cmsghdr_linux_64bit.go 
+func (h *cmsghdr) set(l, lvl, typ int) {
+	h.Len = uint64(l)
+	h.Level = int32(lvl)
+	h.Type = int32(typ)
+}
+```
 
 ## Constants
 
