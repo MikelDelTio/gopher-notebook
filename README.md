@@ -11,4 +11,5 @@ of them are referenced by a footnote, indicating the original source.
 - [Program Structure](notes/program-structure.md)
 - [Basic Data Types](notes/basic-data-types.md)
 - [Composite Types](notes/composite-types.md)
+- [Functions](notes/functions.md)
 - [Errors](notes/errors.md)
