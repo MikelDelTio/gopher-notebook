@@ -146,6 +146,10 @@ the difference between two floats is less than that.
 Therefore, they only should be used in those situations where inexact values are acceptable, like graphics and
 scientific operations, and never to represent money or for monetary operation.
 
+Sources:
+
+- [Learning Go by Jon Bodner](https://www.oreilly.com/library/view/learning-go/9781492077206/)
+
 ## Constants
 
 The following section hosts the best practises and conventions about Go constants.
