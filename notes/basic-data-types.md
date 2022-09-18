@@ -8,6 +8,7 @@ The following page hosts the best practises and conventions about Go basic data 
     - [Typing](basic-data-types.md#integers---typing)
 - [Floats](basic-data-types.md#floats)
     - [Typing](basic-data-types.md#floats---typing)
+    - [Limitation](basic-data-types.md#floats---limitation)
 - [Constants](basic-data-types.md#constants)
     - [Naming](basic-data-types.md#constants---naming)
     - [Declaration](basic-data-types.md#constants---declaration)
@@ -135,6 +136,15 @@ will be considered a premature optimization until proven otherwise.
 Sources:
 
 - [Learning Go by Jon Bodner](https://www.oreilly.com/library/view/learning-go/9781492077206/)
+
+### Floats - Limitation
+
+Although Go floats provides a huge range of precession, they are not exact (stores the nearest approximation), and they
+can not be compared using ```==```  or ```!=``` operators. Instead, a maximum allowed variance is employed to check if
+the difference between two floats is less than that.
+
+Therefore, they only should be used in those situations where inexact values are acceptable, like graphics and
+scientific operations, and never to represent money or for monetary operation.
 
 ## Constants
 
