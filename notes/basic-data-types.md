@@ -130,13 +130,14 @@ very simple.
 | float64 | 1.797693134862315708145274237317043567981e+308 | 4.940656458412465441765687928682213723651e-324 |
 
 The convention is to use ```float64``` as the preferred type, unless you have to be compatible with an existing format.
-The main reasons are that it provides a higher level of precision, ```float32``` only has six- or seven-decimal digits,
-and that the difference in memory consumption is insignificantly for most use cases. Thus, the use of ```float32```type
-will be considered a premature optimization until proven otherwise.
+The main reasons are that it provides a higher level of precision, 6 digits against 15 approximately , and that the
+difference in memory consumption is insignificantly for most use cases. Thus, the use of ```float32```type will be
+considered a premature optimization until proven otherwise.
 
 Sources:
 
 - [Learning Go by Jon Bodner](https://www.oreilly.com/library/view/learning-go/9781492077206/)
+- [The Go Programming Language by Alan A. A. Donovan and Brian W. Kernighan](https://www.gopl.io)
 
 ### Floats - Limitation
 
