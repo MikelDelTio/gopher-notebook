@@ -106,12 +106,13 @@ func main() {
 }
 ```
 
-For all other use cases, just use ```int```. Any other type will be considered a premature optimization until proven
-otherwise.
+For all other use cases, just use ```int``` or ```uint```, that are the natural or most efficient size for signed and
+unsigned integers on a particular platform. (32 or 64 bit depending on the CPU architecture)
 
 Sources:
 
 - [Learning Go by Jon Bodner](https://www.oreilly.com/library/view/learning-go/9781492077206/)
+- [The Go Programming Language by Alan A. A. Donovan and Brian W. Kernighan](https://www.gopl.io)
 
 ## Floats
 
