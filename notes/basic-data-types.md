@@ -56,6 +56,10 @@ func (h *cmsghdr) set(l, lvl, typ int) {
 }
 ```
 
+Sources:
+
+- [Learning Go by Jon Bodner](https://www.oreilly.com/library/view/learning-go/9781492077206/)
+
 ## Constants
 
 The following section hosts the best practises and conventions about Go constants.
@@ -76,6 +80,10 @@ const STATUS_OK = 200     // Bad
 const StatusOk int = 200  // Bad
 const StatusOK = 200      // Good
 ```
+
+Sources:
+
+- [Pro Go by Adam Freeman](https://link.springer.com/book/10.1007/978-1-4842-7355-5)
 
 ### Constants - Declaration
 
@@ -102,7 +110,6 @@ Sources:
 
 - [Effective Go](https://go.dev/doc/effective_go#constants)
 - [Learning Go by Jon Bodner](https://www.oreilly.com/library/view/learning-go/9781492077206/)
-- [Pro Go by Adam Freeman](https://link.springer.com/book/10.1007/978-1-4842-7355-5)
 - [The Go Programming Language by Alan A. A. Donovan and Brian W. Kernighan](https://www.gopl.io)
 
 ## Enumerations
