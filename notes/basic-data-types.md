@@ -6,6 +6,8 @@ The following page hosts the best practises and conventions about Go basic data 
 
 - [Integers](basic-data-types.md#integers)
     - [Typing](basic-data-types.md#integers---typing)
+- [Floats](basic-data-types.md#floats)
+    - [Typing](basic-data-types.md#floats---typing)
 - [Constants](basic-data-types.md#constants)
     - [Naming](basic-data-types.md#constants---naming)
     - [Declaration](basic-data-types.md#constants---declaration)
@@ -105,6 +107,30 @@ func main() {
 
 For all other use cases, just use ```int```. Any other type will be considered a premature optimization until proven
 otherwise.
+
+Sources:
+
+- [Learning Go by Jon Bodner](https://www.oreilly.com/library/view/learning-go/9781492077206/)
+
+## Floats
+
+The following section hosts the best practises and conventions about Go integers.
+
+### Floats - Typing
+
+Go uses the IEEE 754 specification to provide 32 or 64 bits floats, but unlike
+for [integers](basic-data-types.md#integers---typing), the guideline to decide which one to use for each situation is
+very simple.
+
+| Name    | Largest absolute value                         | Smallest (nonzero) absolute value              |
+|---------|------------------------------------------------|------------------------------------------------|
+| float32 | 3.40282346638528859811704183484516925440e+38   | 1.401298464324817070923729583289916131280e-45  |
+| float64 | 1.797693134862315708145274237317043567981e+308 | 4.940656458412465441765687928682213723651e-324 |
+
+The convention is to use ```float64``` as the preferred type, unless you have to be compatible with an existing format.
+The main reasons are that it provides a higher level of precision, ```float32``` only has six- or seven-decimal digits,
+and that the difference in memory consumption is insignificantly for most use cases. Thus, the use of ```float32```type
+will be considered a premature optimization until proven otherwise.
 
 Sources:
 
