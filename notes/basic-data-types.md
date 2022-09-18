@@ -56,6 +56,56 @@ func (h *cmsghdr) set(l, lvl, typ int) {
 }
 ```
 
+On the other hand, if the use case requires to work with any integer type, it is no longer necessary to declare a pair
+of functions with ```int64``` and ```uint64``` for the parameter type, and force callers to make types conversion, as
+can still been seen on FormatInt/FormatUint functions in the strconv package of the Go standard library.
+
+```go
+// FormatUint returns the string representation of i in the given base,
+// for 2 <= base <= 36. The result uses the lower-case letters 'a' to 'z'
+// for digit values >= 10.
+func FormatUint(i uint64, base int) string {
+	if fastSmalls && i < nSmalls && base == 10 {
+		return small(int(i))
+	}
+	_, s := formatBits(nil, i, base, false, false)
+	return s
+}
+
+// FormatInt returns the string representation of i in the given base,
+// for 2 <= base <= 36. The result uses the lower-case letters 'a' to 'z'
+// for digit values >= 10.
+func FormatInt(i int64, base int) string {
+	if fastSmalls && 0 <= i && i < nSmalls && base == 10 {
+		return small(int(i))
+	}
+	_, s := formatBits(nil, uint64(i), base, i < 0, false)
+	return s
+}
+```
+
+Actually the best practise is to take advantage of the generics introduced in Go 1.18, and use
+the ```constraints.Integer``` as function parameter type to support any kind of integer.
+
+```go
+func add[T constraints.Integer](a, b T) T {
+	return a + b
+}
+
+func main() {
+	var num1 int8 = 1
+	var num2 int8 = 1
+	fmt.Println(add(num1, num2)) // Good, prints 2
+
+	var num3 int16 = 2
+	var num4 int16 = 2
+	fmt.Println(add(num3, num4)) // Good, prints 4
+}
+```
+
+For all other use cases, just use ```int```. Any other type will be considered a premature optimization until proven
+otherwise.
+
 Sources:
 
 - [Learning Go by Jon Bodner](https://www.oreilly.com/library/view/learning-go/9781492077206/)
