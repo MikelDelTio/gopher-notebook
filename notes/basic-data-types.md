@@ -84,7 +84,7 @@ func FormatInt(i int64, base int) string {
 }
 ```
 
-Actually the best practise is to take advantage of the generics introduced in Go 1.18, and use
+Currently, the most elegant option is to take advantage of the generics introduced in Go 1.18, and use
 the ```constraints.Integer``` as function parameter type to support any kind of integer.
 
 ```go
