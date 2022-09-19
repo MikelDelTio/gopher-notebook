@@ -42,12 +42,12 @@ func concat(str1, str2 string) (result string) {
 }
 ```
 
-While sometimes can help to make the codebase shorter and clearer, specially if the function returns multiple parameters
-of the same type, they do have some potential corner cases.
+Although some might think that this technique makes the codebase shorter and clearer, or even consider it documentation,
+it does also have some potential corner cases that discourage its use in most cases.
 
-First, by not declaring explicitly the return parameters, it is easier to shadow it, so you have to be very careful and
-use the ```=``` operator to update its value every time. The following code snippet is a good example of this, where
-false (boolean zero value) is always returned, regardless of the input parameter, since result is shadowed.
+First, by not declaring explicitly the return parameters, it is easier to shadow them, so you have to be very careful
+and use the ```=``` operator to update their value every time. The following code snippet is a good example of this,
+where false (boolean zero value) is always returned, regardless of the input parameter, since result is shadowed.
 
 ```go
 func isOdd(a int) (result bool) {
@@ -70,8 +70,9 @@ func sum(a, b int) (result int) {
 }
 ```
 
-Even so, there is one situation where it can be helpful, and that is to modify a return argument in a defer block. For
-example, closing a file in a defer function, allows to properly handle the error, and update the named return parameter.
+Even so, there are some specific situation where this feature can be helpful, such as to modify a return argument in a
+defer block. For example, closing a file in a defer function, allows to properly handle the error, and update the named
+return parameter.
 
 ```go
 func readFile(name string) (err error) {
@@ -90,6 +91,21 @@ func readFile(name string) (err error) {
     // ...
 }
 ```
+
+It could be also useful to differentiate return arguments in those cases where they share the underlying type.
+
+```go
+func Split(path string) (dir, file string) {
+	vol := VolumeName(path)
+	i := len(path) - 1
+	for i >= len(vol) && !os.IsPathSeparator(path[i]) {
+		i--
+	}
+	return path[:i+1], path[i+1:]
+}
+```
+
+In any case, note that its use is not recommended beyond these two exceptions.
 
 Sources:
 
