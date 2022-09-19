@@ -70,7 +70,7 @@ func sum(a, b int) (result int) {
 }
 ```
 
-Even so, there are some specific situation where this feature can be helpful, such as to modify a return argument in a
+Even so, there are some specific situations where this feature can be helpful, such as to modify a return argument in a
 defer block. For example, closing a file in a defer function, allows to properly handle the error, and update the named
 return parameter.
 
