@@ -170,7 +170,7 @@ parameters, but also on external values.
 
 Moreover, this data could be modified concurrently by other executions or even functions, producing data races that lead
 to unexpected errors, and Go does not provide a way to enforce that value does not change after first assignment
-on```init``` function.
+on ```init``` function.
 
 Sources:
 
