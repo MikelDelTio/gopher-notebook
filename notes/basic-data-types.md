@@ -64,9 +64,6 @@ of functions with ```int64``` and ```uint64``` for the parameter type, and force
 can still been seen on FormatInt/FormatUint functions in the strconv package of the Go standard library.
 
 ```go
-// FormatUint returns the string representation of i in the given base,
-// for 2 <= base <= 36. The result uses the lower-case letters 'a' to 'z'
-// for digit values >= 10.
 func FormatUint(i uint64, base int) string {
 	if fastSmalls && i < nSmalls && base == 10 {
 		return small(int(i))
@@ -75,9 +72,6 @@ func FormatUint(i uint64, base int) string {
 	return s
 }
 
-// FormatInt returns the string representation of i in the given base,
-// for 2 <= base <= 36. The result uses the lower-case letters 'a' to 'z'
-// for digit values >= 10.
 func FormatInt(i int64, base int) string {
 	if fastSmalls && 0 <= i && i < nSmalls && base == 10 {
 		return small(int(i))

@@ -95,14 +95,8 @@ func readFile(name string) (err error) {
 It could be also useful to differentiate return arguments in those cases where they share the underlying type.
 
 ```go
-func Split(path string) (dir, file string) {
-	vol := VolumeName(path)
-	i := len(path) - 1
-	for i >= len(vol) && !os.IsPathSeparator(path[i]) {
-		i--
-	}
-	return path[:i+1], path[i+1:]
-}
+func Split(path string) (string, string) {}   // Bad
+func Split(path string) (dir, file string) {} // Good
 ```
 
 In any case, note that its use is not recommended beyond these two exceptions.

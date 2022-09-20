@@ -148,30 +148,30 @@ Go provides several ways to initialize a map, but the recommendation is to use `
 maps, since shows clearer the intended value and could prevent accidental errors produced by writing on a nil map.
 
 ```go
-	var myMap map[string]int      // Bad, map is will panic on writes
-	var myMap = map[string]int{}  // Bad, map is empty and safe to read and write, but is not the clearest option
-	mymap := make(map[string]int) // Good
+var myMap map[string]int      // Bad, map is will panic on writes
+var myMap = map[string]int{}  // Bad, map is empty and safe to read and write, but is not the clearest option
+mymap := make(map[string]int) // Good
 ```
 
 In fact, the best practise is to provide an initial capacity, where possible, since provides a better performance by not
 having to dynamically grow the map as elements are added.
 
 ```go
-	mymap := make(map[string]int, 10) // Good
+mymap := make(map[string]int, 10) // Good
 ```
 
 There is a case in which ```make(..)``` function is not required, and that is when th map holds a fixed list of
 elements. In that case, the preferred way is to use map literals to initialize the map.
 
 ```go
-	myMap := make(map[string]int, 2) // Bad
-	myMap[0] = "Hello"
-	myMap[1] = "World"
+myMap := make(map[string]int, 2) // Bad
+myMap[0] = "Hello"
+myMap[1] = "World"
 
-	myMap := map[string]int{         // Good
-		0: "Hello",
-		1: "World",
-	}
+myMap := map[string]int{         // Good
+	0: "Hello",
+	1: "World",
+}
 ```
 
 Sources:
