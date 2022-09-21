@@ -75,22 +75,14 @@ Go's convention is to directly access structs fields, instead of writing getter 
 reserved just for business logic.
 
 ```go
-func main() {
-	user, err := getUserById("001")
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("The user's name is %s", user.Name)
+type Customer struct {
+	Name string
 }
-```
 
-```go
 func main() {
-	user, err := getUserById("001")
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("The user's name is %s", user.Name)
+	customer := Customer{}
+	customer.Name = "Bob"
+	fmt.Printf("The customer's name is %s", customer.Name)
 }
 ```
 
