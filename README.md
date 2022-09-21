@@ -12,4 +12,5 @@ of them are referenced by a footnote, indicating the original source.
 - [Basic Data Types](notes/basic-data-types.md)
 - [Composite Types](notes/composite-types.md)
 - [Functions](notes/functions.md)
+- [Methods](notes/methods.md)
 - [Errors](notes/errors.md)
