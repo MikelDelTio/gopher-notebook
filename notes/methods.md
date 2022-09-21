@@ -75,14 +75,14 @@ Go's convention is to directly access structs fields, instead of writing getter 
 reserved just for business logic.
 
 ```go
-type Customer struct {
+type User struct {
 	Name string
 }
 
 func main() {
-	customer := Customer{}
-	customer.Name = "Bob"
-	fmt.Printf("The customer's name is %s", customer.Name)
+	user := User{}
+	user.Name = "Bob"
+	fmt.Printf("The user's name is %s", user.Name)
 }
 ```
 
