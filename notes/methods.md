@@ -5,6 +5,7 @@ The following page hosts the best practises and conventions about Go methods.
 ## Table of Contents
 
 - [Receiver](methods.md#receiver)
+- [Getters & Setters](methods.md#getters--setters)
 
 ## Receiver
 
@@ -67,3 +68,53 @@ Sources:
 - [Learning Go by Jon Bodner](https://www.oreilly.com/library/view/learning-go/9781492077206/)
 - [The Go Programming Language by Alan A. A. Donovan and Brian W. Kernighan](https://www.gopl.io)
 - [When to use pointers in Go by Dylan Meeus](https://medium.com/@meeusdylan/when-to-use-pointers-in-go-44c15fe04eac)
+
+## Getters & Setters
+
+Go's convention is to directly access structs fields, instead of writing getter and setter methods. Methods should be
+reserved just for business logic.
+
+```go
+func main() {
+	user, err := getUserById("001")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("The user's name is %s", user.Name)
+}
+```
+
+```go
+func main() {
+	user, err := getUserById("001")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("The user's name is %s", user.Name)
+}
+```
+
+Nonetheless, there are exceptions like when you need them to meet an interface or when it is not a direct assignment
+operation, either because of the complexity or because multiple fields are involved. In these cases, Get prefix (or
+similar) should be avoided, but setter word in maintained.
+
+```go
+type User interface {
+	Name() string                
+}
+
+func (u *User) Name() string {
+	return u.name
+}
+
+func (u *User) SetName(name string) {
+	u.name = name
+	// ...
+}
+```
+
+Sources:
+
+- [Effective Go](https://go.dev/doc/effective_go#Getters)
+- [Learning Go by Jon Bodner](https://www.oreilly.com/library/view/learning-go/9781492077206/)
+- [The Go Programming Language by Alan A. A. Donovan and Brian W. Kernighan](https://www.gopl.io)
