@@ -91,8 +91,12 @@ operation, either because of the complexity or because multiple fields are invol
 similar) should be avoided, but setter word in maintained.
 
 ```go
-type User interface {
+type Nameable interface {
 	Name() string                
+}
+
+type User struct {
+	name string
 }
 
 func (u *User) Name() string {
