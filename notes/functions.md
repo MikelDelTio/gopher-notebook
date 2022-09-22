@@ -5,6 +5,7 @@ The following page hosts the best practises and conventions about Go functions.
 ## Table of Contents
 
 - [Naming](functions.md#naming)
+- [Group Parameters](functions.md#group-parameters)
 - [Named Result Parameters](functions.md#named-result-parameters)
 - [Naked Returns](functions.md#naked-returns)
 - [Init](functions.md#init)
@@ -29,6 +30,21 @@ Sources:
 
 - [pkg.go.dev](https://pkg.go.dev/testing)
 - [Uber Go Style Guide](https://github.com/uber-go/guide/blob/master/style.md#function-names)
+
+## Group Parameters
+
+Go allows to group a sequence of input parameters of the same type, so that the type itself is written only
+once, producing an idiomatic codebase that favors the readability and maintainability.
+
+```go
+func minus(a int, b int) int {} // Bad
+func minus(a, b int) int {}     // Good
+```
+
+Sources:
+
+- [Learning Go by Jon Bodner](https://www.oreilly.com/library/view/learning-go/9781492077206/)
+- [The Go Programming Language by Alan A. A. Donovan and Brian W. Kernighan](https://www.gopl.io)
 
 ## Named Result Parameters
 
