@@ -40,6 +40,35 @@ var customerId int // Bad
 var customerID int // Good
 ```
 
+These names should be concise, but shorter than long, specially when the scope or even the life cycle of the variable is
+limited. As commented in [Go Code Review Comments](https://github.com/golang/go/wiki/CodeReviewComments#initialisms),
+the basic rule is: the further from its declaration that a name is used, the more descriptive the name must be.
+
+The following code snippet extracted from the ```ioutils``` package is a good example of this. Limited scope variables
+such as loop indices and values are represent with a single letter, while a more descriptive name is employed for the
+main input parameter of the function.
+
+In the other hand, file variables is named as ```f```, following the convention among Go community to describe common
+variables like ```file```, ```reader``` o```writer```, among many others, with a single-letter abbreviation, especially
+when the previously mentioned rule is fulfilled.
+
+```go
+func ReadDir(dirname string) ([]fs.FileInfo, error) {
+	f, err := os.Open(dirname)
+	if err != nil {
+		return nil, err
+	}
+	list, err := f.Readdir(-1)
+	f.Close()
+	if err != nil {
+		return nil, err
+	}
+	sort.Slice(list, func(i, j int) bool { return list[i].Name() < list[j].Name() })
+	return list, nil
+}
+
+```
+
 Finally, avoid using Go's [predeclared identifiers](https://go.dev/ref/spec#Predeclared_identifiers), such as types(
 bool, byte, int...) or functions (copy, delete, len, make...) as variable names, since will shadow the original meaning
 and introduce hard to find bugs, especially in those cases where the compiler is not able to detect it.
