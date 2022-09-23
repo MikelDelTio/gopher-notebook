@@ -69,6 +69,14 @@ func ReadDir(dirname string) ([]fs.FileInfo, error) {
 
 ```
 
+Regardless of size, variable type should be excluded from the name. After all, Go is strongly typed, so it is
+unnecessary to track the underlying type on the name.
+
+```go
+usersMap := make(map[User]int) // Bad
+users := make(map[User]int)    // Good
+```
+
 Finally, avoid using Go's [predeclared identifiers](https://go.dev/ref/spec#Predeclared_identifiers), such as types(
 bool, byte, int...) or functions (copy, delete, len, make...) as variable names, since will shadow the original meaning
 and introduce hard to find bugs, especially in those cases where the compiler is not able to detect it.
