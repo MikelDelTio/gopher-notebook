@@ -4,9 +4,60 @@ The following page hosts the best practises and conventions about Go program str
 
 ## Table of Contents
 
+- [Packages](program-structure.md#packages)
+    - [Naming](program-structure.md#packages---naming)
 - [Variables](program-structure.md#variables)
     - [Naming](program-structure.md#variables---naming)
     - [Declaration](program-structure.md#variables---declaration)
+
+## Packages
+
+The following section hosts the best practises and conventions about Go packages.
+
+### Packages - Naming
+
+Package names in Go should be short and concise, a lower-case single-word singular terms that could
+not contain capitals or underscores. By convention, these name should match with the base name of its source directory,
+that is, a package located at ```src/compress/gzip``` is imported as ```compress/gzip``` but its name is ```gzip```.
+
+```go
+compress/gzips           // Bad
+compress/gZip            // Bad
+compress/gzip_compresser // Bad
+compress/gzipcompresser  // Bad
+
+compress/gzip            // Good
+```
+
+Don't worry about duplications, although package name is default the name for imports, does not have to be unique neither
+locally nor globally. In the event of a collision, aliasing could be used to provide an alternative name.
+
+```go
+import "runtime/trace"
+import nettrace "golang.net/x/trace"
+```
+
+It is important to note that the elements of a package, such as [structs](composite-types.md#structs)
+or [functions](functions.md), are externally referenced using the package name, so that name should be omitted from the
+identifiers.
+
+```go
+package http
+
+type HTTPClient struct {} // Bad
+type Client struct {}     // Good
+
+func NewHTTPClient() {}   // Bad
+func NewClient() {}       // Good
+```
+
+Finally, avoid meaningless package names like util, shared, common or lib, among other, there are totally uninformative.
+
+Sources:
+
+- [Go Code Review Comments](https://github.com/golang/go/wiki/CodeReviewComments#package-names)
+- [Effective Go](https://go.dev/doc/effective_go#package-names)
+- [Uber Go Style Guide](https://github.com/uber-go/guide/blob/master/style.md#package-names)
 
 ## Variables
 
