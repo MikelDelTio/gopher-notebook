@@ -17,7 +17,7 @@ The following section hosts the best practises and conventions about Go packages
 ### Packages - Naming
 
 Package names in Go should be short and concise, a lower-case single-word singular terms that could
-not contain capitals or underscores. By convention, the name should match with the base name of its source directory,
+not contain capitals or underscores. By convention, these name should match with the base name of its source directory,
 that is, a package located at ```src/compress/gzip``` is imported as ```compress/gzip``` but its name is ```gzip```.
 
 ```go
@@ -29,7 +29,7 @@ compress/gzipcompresser  // Bad
 compress/gzip            // Good
 ```
 
-Don't worry about duplications, although package name is default name for imports, does not have to be unique neither
+Don't worry about duplications, although package name is default the name for imports, does not have to be unique neither
 locally nor globally. In the event of a collision, aliasing could be used to provide an alternative name.
 
 ```go
