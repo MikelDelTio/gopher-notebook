@@ -21,10 +21,10 @@ not contain capitals or underscores. By convention, the name should match with t
 that is, a package located at ```src/compress/gzip``` is imported as ```compress/gzip``` but its name is ```gzip```.
 
 ```go
-compress/gzips           // Bad, name should be a singular term
-compress/gZip            // Bad, name should not contain capitals
-compress/gzip_compresser // Bad, name should not contain underscores
-compress/gzipcompresser  // Bad, name should be single-word
+compress/gzips           // Bad
+compress/gZip            // Bad
+compress/gzip_compresser // Bad
+compress/gzipcompresser  // Bad
 
 compress/gzip            // Good
 ```
