@@ -16,13 +16,13 @@ Functions in Go follows the same naming convention as [variables](program-struct
 test and benchmark functions starts with ```Test``` or ```Benchmark``` word.
 
 ```go
-func Hello_Word() {} // Bad, function name should not contain undescore symbol
-func HelloWord()  {} // Good
+func Hello_Word() {}                     // Bad, the function name should not contain undescore symbol
+func HelloWord()  {}                     // Good
 
-func HelloWord(t *testing.T) {}     // Bad, test function name should begin with Test word
-func TestHelloWord(t *testing.T) {} // Good
+func HelloWord(t *testing.T) {}          // Bad, the test function name should begin with Test word
+func TestHelloWord(t *testing.T) {}      // Good
 
-func HelloWord(b *testing.B) {}          // Bad, benchmark function name should begin with Benchmark word
+func HelloWord(b *testing.B) {}          // Bad, the benchmark function name should begin with Benchmark word
 func BenchmarkHelloWord(b *testing.B) {} // Good
 ```
 
@@ -69,7 +69,7 @@ where false (boolean zero value) is always returned, regardless of the input par
 ```go
 func isOdd(x int) (result bool) {
 	if x%2 == 0 {
-		result := true // Shadowed variable
+		result := true // Bad, result variable is shadowed
 		println(result)
 	}
 	return result
@@ -93,13 +93,13 @@ return parameter.
 
 ```go
 func readFile(name string) (err error) {
-	file, err := os.Open(name)
+	f, err := os.Open(name)
 	if err != nil {
 		return err
 	}
 
 	defer func() {
-		cerr := file.Close()
+		cerr := f.Close()
 		if err == nil {
 			err = cerr
 		}
@@ -112,7 +112,7 @@ func readFile(name string) (err error) {
 It could be also useful to differentiate return arguments in those cases where they share the underlying type.
 
 ```go
-func Split(path string) (string, string) {}   // Bad, named result should be used to differentiate same type return arguments
+func Split(path string) (string, string) {}   // Bad, a named result parameter should be used to differentiate same type return arguments
 func Split(path string) (dir, file string) {} // Good
 ```
 
