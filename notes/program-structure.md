@@ -21,15 +21,16 @@ not contain capitals or underscores. By convention, these name should match with
 that is, a package located at ```src/compress/gzip``` is imported as ```compress/gzip``` but its name is ```gzip```.
 
 ```go
-compress/gzips           // Bad
-compress/gZip            // Bad
-compress/gzip_compresser // Bad
-compress/gzipcompresser  // Bad
+compress/gzips           // Bad, package name should be in singular
+compress/gZip            // Bad, package name should be in lower-case
+compress/gzip_compresser // Bad, package name should not contain the underscore symbol
+compress/gzipcompresser  // Bad, package name should be a single-word term
 
 compress/gzip            // Good
 ```
 
-Don't worry about duplications, although package name is default the name for imports, does not have to be unique neither
+Don't worry about duplications, although package name is default the name for imports, does not have to be unique
+neither
 locally nor globally. In the event of a collision, aliasing could be used to provide an alternative name.
 
 ```go
@@ -44,10 +45,10 @@ identifiers.
 ```go
 package http
 
-type HTTPClient struct {} // Bad
+type HTTPClient struct {} // Bad, package name should be ommited on package elements such as structs
 type Client struct {}     // Good
 
-func NewHTTPClient() {}   // Bad
+func NewHTTPClient() {}   // Bad, package name should be ommited on package elements such as functions
 func NewClient() {}       // Good
 ```
 
@@ -73,22 +74,22 @@ This rule must be followed even when it breaks conventions in other languages, l
 underscores to name [constants](basic-data-types.md#constants---naming).
 
 ```go
-var first_name string // Bad
+var first_name string // Bad, variable name should not contain the underscore symbol
 var firstName string  // Good
 ```
 
 For words in names that are initialism or acronyms, a consistent case is applied, that is, they would be written
-completely in uppercase o lowercase, depending on the first letter of the word.
+completely in uppercase or lowercase, depending on the first letter of the word.
 
 ```go
-var HttpServer string // Bad
-var HTTPServer string // Good
+var HttpServer string  // Bad, acronyms should be written in complety uppercase or lowercase
+var HTTPServer string  // Good
 
-var jSONContent []byte // Bad
+var jSONContent []byte // Bad, acronyms should be written in complety uppercase or lowercase
 var jsonContent []byte // Good
 
-var customerId int // Bad
-var customerID int // Good
+var customerId int     // Bad, acronyms should be written in complety uppercase or lowercase
+var customerID int     // Good
 ```
 
 These names should be concise, but shorter than long, specially when the scope or even the life cycle of the variable is
@@ -124,7 +125,7 @@ Regardless of size, variable type should be excluded from the name. After all, G
 unnecessary to track the underlying type on the name.
 
 ```go
-usersMap := make(map[User]int) // Bad
+usersMap := make(map[User]int) // Bad, variable name should not contain the underlying type
 users := make(map[User]int)    // Good
 ```
 
@@ -154,8 +155,8 @@ about how it is used, but the most common convention within functions is to use 
 KISS (keeping it simple stupid) design principle whenever possible.
 
 ```go
-var hello string = "world" // Bad
-var hello = "world"        // Bad
+var hello string = "world" // Bad, non-zero value variables should be initialized using the := operator
+var hello = "world"        // Bad, non-zero value variables should be initialized using the := operator
 hello := "world"           // Good
 ```
 
@@ -163,7 +164,7 @@ Even so, there are some cases in which it should not be used, such as to initial
 the long form style is recommended. It shows clearer the intended zero value.
 
 ```go
-found := false // Bad
+found := false // Bad, zero value variables should be initialized using the log form style
 var found bool // Good
 ```
 
@@ -171,7 +172,7 @@ The long form style is also the suitable way when the default type for the assig
 variable. It defines in a more idiomatic way, without requiring an explicit type conversion.
 
 ```go
-buffer := byte(256)   // Bad
+buffer := byte(256)   // Bad, explicit type conversion should not be used in variables initialization
 var buffer byte = 256 // Good
 ```
 
