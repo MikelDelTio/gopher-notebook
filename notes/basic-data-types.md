@@ -185,11 +185,11 @@ fmt.Println("Total:", num1+num2) // Good, prints 101,99
 
 const num1 float32 = 99.99
 const num2 int = 2
-fmt.Println("Sum:", num1+num2) // Error, mismatched types float32 and int
+fmt.Println("Sum:", num1+num2)   // Error, mismatched types float32 and int
 
 const num1 float32 = 99.99
 const num2 = 2
-fmt.Println("Sum:", num1+num2) // Good, prints 101,99
+fmt.Println("Sum:", num1+num2)   // Good, prints 101,99
 ```
 
 Sources:
