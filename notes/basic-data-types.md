@@ -85,8 +85,8 @@ Currently, the most elegant option is to take advantage of the generics introduc
 the ```constraints.Integer``` as function parameter type to support any kind of integer.
 
 ```go
-func add[T constraints.Integer](a, b T) T {
-	return a + b
+func add[T constraints.Integer](x, y T) T {
+	return x + y
 }
 
 func main() {
@@ -161,9 +161,9 @@ employed, just like for all other [variables](program-structure.md#variables---n
 descriptive, making it clear what the value represents, but without any reference to the underlying type.
 
 ```go
-const STATUS_OK_INT = 200 // Bad
-const STATUS_OK = 200     // Bad
-const StatusOk int = 200  // Bad
+const STATUS_OK_INT = 200 // Bad, variable name should not contain the underlying type
+const STATUS_OK = 200     // Bad, variable name should not contain the underscore symbol
+const StatusOk int = 200  // Bad, variable should not be declared the underlying type 
 const StatusOK = 200      // Good
 ```
 
