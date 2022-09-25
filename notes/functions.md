@@ -16,7 +16,7 @@ Functions in Go follows the same naming convention as [variables](program-struct
 test and benchmark functions starts with ```Test``` or ```Benchmark``` word.
 
 ```go
-func Hello_Word() {}                     // Bad, the function name should not contain undescore symbol
+func Hello_Word() {}                     // Bad, the function name should not contain the undescore symbol
 func HelloWord()  {}                     // Good
 
 func HelloWord(t *testing.T) {}          // Bad, the test function name should begin with Test word

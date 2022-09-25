@@ -148,7 +148,7 @@ Go provides several ways to initialize a map, but the recommendation is to use `
 maps, since shows clearer the intended value and could prevent accidental errors produced by writing on a nil map.
 
 ```go
-var employees map[employee]int      // Bad, map is will panic on writes
+var employees map[employee]int      // Bad, map is nill and will panic on writes
 var employees = map[employee]int{}  // Bad, map is empty and safe to read and write, but is not the clearest option
 employees := make(map[employee]int) // Good
 ```

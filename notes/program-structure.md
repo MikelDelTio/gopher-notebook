@@ -82,13 +82,13 @@ For words in names that are initialism or acronyms, a consistent case is applied
 completely in uppercase or lowercase, depending on the first letter of the word.
 
 ```go
-var HttpServer string  // Bad, acronyms should be written in complety uppercase or lowercase
+var HttpServer string  // Bad, an acronym should be written in complety uppercase or lowercase
 var HTTPServer string  // Good
 
-var jSONContent []byte // Bad, acronyms should be written in complety uppercase or lowercase
+var jSONContent []byte // Bad, an acronym should be written in complety uppercase or lowercase
 var jsonContent []byte // Good
 
-var customerId int     // Bad, acronyms should be written in complety uppercase or lowercase
+var customerId int     // Bad, an acronym should be written in complety uppercase or lowercase
 var customerID int     // Good
 ```
 
@@ -124,7 +124,7 @@ Regardless of size, variable type should be excluded from the name. After all, G
 unnecessary to track the underlying type on the name.
 
 ```go
-usersMap := make(map[User]int) // Bad, variable name should not contain the underlying type
+usersMap := make(map[User]int) // Bad, the variable name should not contain the underlying type
 users := make(map[User]int)    // Good
 ```
 
