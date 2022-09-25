@@ -47,7 +47,7 @@ type customer struct {
 	age     int
 }
 
-customer := customer{"Bob", 32}            // Bad, fields names must be explicitly defined
+customer := customer{"Bob", 32}            // Bad, the name of the fields must be explicitly defined
 customer := customer{name: "Bob", age: 32} // Good
 ```
 
