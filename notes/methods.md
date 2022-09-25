@@ -19,9 +19,9 @@ and should be avoided.
 ```go
 type Course struct{}
 
-func (course Course) Enroll() {} // Bad
-func (this Course) Enroll() {}   // Bad
-func (self Course) Enroll() {}   // Bad
+func (course Course) Enroll() {} // Bad, receiver name should be an abbreviation, no the full name
+func (this Course) Enroll() {}   // Bad, receiver name should not be this
+func (self Course) Enroll() {}   // Bad, receiver name should not be self
 
 func (c Course) Enroll() {} // Good
 ```
