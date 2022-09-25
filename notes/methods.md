@@ -19,7 +19,7 @@ and should be avoided.
 ```go
 type Course struct{}
 
-func (course Course) Enroll() {} // Bad, the receiver name should be an abbreviation, no the full name
+func (course Course) Enroll() {} // Bad, the receiver name should be an abbreviation, not the full name
 func (this Course) Enroll() {}   // Bad, the receiver name should not be this
 func (self Course) Enroll() {}   // Bad, the receiver name should not be self
 
