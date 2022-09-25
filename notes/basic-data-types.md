@@ -163,7 +163,7 @@ descriptive, making it clear what the value represents, but without any referenc
 ```go
 const STATUS_OK_INT = 200 // Bad, the constant name should not contain the underlying type
 const STATUS_OK = 200     // Bad, the constant name should not contain the underscore symbol
-const StatusOk int = 200  // Bad, a constant should not be declared using the long form style
+const StatusOk int = 200  // Bad, the constant should not be declared using the long form style
 const StatusOK = 200      // Good
 ```
 
