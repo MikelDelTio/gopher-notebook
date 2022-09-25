@@ -21,10 +21,10 @@ not contain capitals or underscores. By convention, these name should match with
 that is, a package located at ```src/compress/gzip``` is imported as ```compress/gzip``` but its name is ```gzip```.
 
 ```go
-compress/gzips           // Bad, package name should be in singular
-compress/gZip            // Bad, package name should be in lower-case
-compress/gzip_compresser // Bad, package name should not contain the underscore symbol
-compress/gzipcompresser  // Bad, package name should be a single-word term
+compress/gzips           // Bad, the package name should be written in singular
+compress/gZip            // Bad, the package name should be written in lower-case
+compress/gzip_compresser // Bad, the package name should not contain the underscore symbol
+compress/gzipcompresser  // Bad, the package name should be a single-word term
 
 compress/gzip            // Good
 ```
@@ -45,10 +45,10 @@ identifiers.
 ```go
 package http
 
-type HTTPClient struct {} // Bad, package name should be ommited on package elements such as structs
+type HTTPClient struct {} // Bad, the package name should be ommited on package elements such as structs
 type Client struct {}     // Good
 
-func NewHTTPClient() {}   // Bad, package name should be ommited on package elements such as functions
+func NewHTTPClient() {}   // Bad, the package name should be ommited on package elements such as functions
 func NewClient() {}       // Good
 ```
 
@@ -74,7 +74,7 @@ This rule must be followed even when it breaks conventions in other languages, l
 underscores to name [constants](basic-data-types.md#constants---naming).
 
 ```go
-var first_name string // Bad, variable name should not contain the underscore symbol
+var first_name string // Bad, the variable name should not contain the underscore symbol
 var firstName string  // Good
 ```
 
@@ -118,7 +118,6 @@ func ReadDir(dirname string) ([]fs.FileInfo, error) {
 	sort.Slice(list, func(i, j int) bool { return list[i].Name() < list[j].Name() })
 	return list, nil
 }
-
 ```
 
 Regardless of size, variable type should be excluded from the name. After all, Go is strongly typed, so it is
@@ -155,8 +154,8 @@ about how it is used, but the most common convention within functions is to use 
 KISS (keeping it simple stupid) design principle whenever possible.
 
 ```go
-var hello string = "world" // Bad, non-zero value variables should be initialized using the := operator
-var hello = "world"        // Bad, non-zero value variables should be initialized using the := operator
+var hello string = "world" // Bad, a non-zero value variable should be initialized using the := operator
+var hello = "world"        // Bad, a non-zero value variable should be initialized using the := operator
 hello := "world"           // Good
 ```
 
@@ -164,7 +163,7 @@ Even so, there are some cases in which it should not be used, such as to initial
 the long form style is recommended. It shows clearer the intended zero value.
 
 ```go
-found := false // Bad, zero value variables should be initialized using the log form style
+found := false // Bad, a zero value variable should be initialized using the log form style
 var found bool // Good
 ```
 
