@@ -170,7 +170,7 @@ handle it in the ```main``` function, log the error message and end the executio
 func main() {
 	file, err := readFile("random.json")
 	if err != nil {
-		panic(err)     // Bad
+		panic(err)     // Bad, log.Fatal* should be used to terminate the program
 		log.Fatal(err) // Good
 	}
 	// ...
