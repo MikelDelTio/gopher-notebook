@@ -19,11 +19,11 @@ and should be avoided.
 ```go
 type Course struct{}
 
-func (course Course) Enroll() {} // Bad
-func (this Course) Enroll() {}   // Bad
-func (self Course) Enroll() {}   // Bad
+func (course Course) Enroll() {} // Bad, the receiver name should be an abbreviation, not the full name
+func (this Course) Enroll() {}   // Bad, the receiver name should not be this
+func (self Course) Enroll() {}   // Bad, the receiver name should not be self
 
-func (c Course) Enroll() {} // Good
+func (c Course) Enroll() {}      // Good
 ```
 
 Secondly, receivers could be of pointer or value type, just like any parameter, so the same rules should be applied to

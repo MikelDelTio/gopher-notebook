@@ -1,4 +1,4 @@
-# Primitive Types
+# Basic Data Types
 
 The following page hosts the best practises and conventions about Go basic data types.
 
@@ -85,8 +85,8 @@ Currently, the most elegant option is to take advantage of the generics introduc
 the ```constraints.Integer``` as function parameter type to support any kind of integer.
 
 ```go
-func add[T constraints.Integer](a, b T) T {
-	return a + b
+func add[T constraints.Integer](x, y T) T {
+	return x + y
 }
 
 func main() {
@@ -161,9 +161,9 @@ employed, just like for all other [variables](program-structure.md#variables---n
 descriptive, making it clear what the value represents, but without any reference to the underlying type.
 
 ```go
-const STATUS_OK_INT = 200 // Bad
-const STATUS_OK = 200     // Bad
-const StatusOk int = 200  // Bad
+const STATUS_OK_INT = 200 // Bad, the constant name should not contain the underlying type
+const STATUS_OK = 200     // Bad, the constant name should not contain the underscore symbol
+const StatusOk int = 200  // Bad, the constant should not be declared using the long form style
 const StatusOK = 200      // Good
 ```
 
@@ -185,11 +185,11 @@ fmt.Println("Total:", num1+num2) // Good, prints 101,99
 
 const num1 float32 = 99.99
 const num2 int = 2
-fmt.Println("Sum:", num1+num2) // Error, mismatched types float32 and int
+fmt.Println("Sum:", num1+num2)   // Error, mismatched types float32 and int
 
 const num1 float32 = 99.99
 const num2 = 2
-fmt.Println("Sum:", num1+num2) // Good, prints 101,99
+fmt.Println("Sum:", num1+num2)   // Good, prints 101,99
 ```
 
 Sources:

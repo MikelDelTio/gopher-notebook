@@ -16,13 +16,13 @@ Functions in Go follows the same naming convention as [variables](program-struct
 test and benchmark functions starts with ```Test``` or ```Benchmark``` word.
 
 ```go
-func Hello_Word() {} // Bad
-func HelloWord()  {} // Good
+func Hello_Word() {}                     // Bad, the function name should not contain the undescore symbol
+func HelloWord()  {}                     // Good
 
-func HelloWord(t *testing.T) {}     // Bad
-func TestHelloWord(t *testing.T) {} // Good
+func HelloWord(t *testing.T) {}          // Bad, the test function name should begin with Test word
+func TestHelloWord(t *testing.T) {}      // Good
 
-func HelloWord(b *testing.B) {}          // Bad
+func HelloWord(b *testing.B) {}          // Bad, the benchmark function name should begin with Benchmark word
 func BenchmarkHelloWord(b *testing.B) {} // Good
 ```
 
@@ -37,8 +37,8 @@ Go allows to group a sequence of input parameters of the same type, so that the 
 once, producing an idiomatic codebase that favors the readability and maintainability.
 
 ```go
-func minus(a int, b int) int {} // Bad
-func minus(a, b int) int {}     // Good
+func minus(x int, y int) int {} // Bad, parameters of the same type should be grouped
+func minus(x, y int) int {}     // Good
 ```
 
 Sources:
@@ -67,9 +67,9 @@ and use the ```=``` operator to update their value every time. The following cod
 where false (boolean zero value) is always returned, regardless of the input parameter, since result is shadowed.
 
 ```go
-func isOdd(a int) (result bool) {
-	if a%2 == 0 {
-		result := true // Shadowed variable
+func isOdd(x int) (result bool) {
+	if x%2 == 0 {
+		result := true // Bad, the result variable is shadowed
 		println(result)
 	}
 	return result
@@ -81,8 +81,8 @@ are assigned to the return statement, they will be returned as well, even though
 return parameters. This makes the code confusing.
 
 ```go
-func sum(a, b int) (result int) {
-	result = a + b
+func mul(x, y int) (result int) {
+	result = x * y
 	return 5
 }
 ```
@@ -93,13 +93,13 @@ return parameter.
 
 ```go
 func readFile(name string) (err error) {
-	file, err := os.Open(name)
+	f, err := os.Open(name)
 	if err != nil {
 		return err
 	}
 
 	defer func() {
-		cerr := file.Close()
+		cerr := f.Close()
 		if err == nil {
 			err = cerr
 		}
@@ -112,7 +112,7 @@ func readFile(name string) (err error) {
 It could be also useful to differentiate return arguments in those cases where they share the underlying type.
 
 ```go
-func Split(path string) (string, string) {}   // Bad
+func Split(path string) (string, string) {}   // Bad, a named result parameter should be used to differentiate same type return arguments
 func Split(path string) (dir, file string) {} // Good
 ```
 
@@ -128,8 +128,8 @@ Sources:
 A naked return is a return statement without arguments in which named return values are automatically returned.
 
 ```go
-func sub(a, b int) (result int) {
-	result = a - b
+func div(x, y int) (result int) {
+	result = x / y
 	return
 }
 ```
