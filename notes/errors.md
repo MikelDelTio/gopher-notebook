@@ -97,7 +97,7 @@ message provides enough information to track down where it came from.
 
 ```go
 func readFile(name string) error {
-	file, err := os.Open(name)
+	f, err := os.Open(name)
 	if err != nil {
 		return err
 	}
@@ -168,7 +168,7 @@ handle it in the ```main``` function, log the error message and end the executio
 
 ```go
 func main() {
-	file, err := readFile("random.json")
+	f, err := readFile("random.json")
 	if err != nil {
 		panic(err)     // Bad, log.Fatal* should be used to terminate the program
 		log.Fatal(err) // Good
@@ -230,7 +230,7 @@ func run() error {
 		return err
 	}
 
-	fileContent, err := readFile(config.FileName)
+	f, err := readFile(config.FileName)
 	if err != nil {
 		return err
 	}
@@ -243,7 +243,6 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
 }
 ```
 
