@@ -69,7 +69,7 @@ where false (boolean zero value) is always returned, regardless of the input par
 ```go
 func isOdd(x int) (result bool) {
 	if x%2 == 0 {
-		result := true // Bad, result variable is shadowed
+		result := true // Bad, the result variable is shadowed
 		println(result)
 	}
 	return result
