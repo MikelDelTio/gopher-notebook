@@ -47,8 +47,8 @@ type customer struct {
 	age     int
 }
 
-customer := customer{"Bob", 32} // Bad
-customer := customer{name: "Bob", age: 32} // Ok
+customer := customer{"Bob", 32}            // Bad, fields names must be explicitly defined
+customer := customer{name: "Bob", age: 32} // Good
 ```
 
 Sources:
@@ -157,18 +157,18 @@ In fact, the best practise is to provide an initial capacity, where possible, si
 having to dynamically grow the map as elements are added.
 
 ```go
-employees := make(map[employee]int, 10) // Good
+employees := make(map[employee]int, 10)
 ```
 
 There is a case in which ```make(..)``` function is not required, and that is when th map holds a fixed list of
 elements. In that case, the preferred way is to use map literals to initialize the map.
 
 ```go
-employees := make(map[employee]int, 2) // Bad
+employees := make(map[employee]int, 2) // Bad, fixed list of elements should be initialized directly on the map
 employees[0] = NewEmployee("Bob")
 employees[1] = NewEmployee("Alice")
 
-employees := map[string]int{         // Good
+employees := map[string]int{           // Good
 	0: NewEmployee("Bob"),
 	1: NewEmployee("Alice"),
 }
