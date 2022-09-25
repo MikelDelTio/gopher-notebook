@@ -163,7 +163,7 @@ Even so, there are some cases in which it should not be used, such as to initial
 the long form style is recommended. It shows clearer the intended zero value.
 
 ```go
-found := false // Bad, a zero value variable should be initialized using the log form style
+found := false // Bad, a zero value variable should be initialized using the long form style
 var found bool // Good
 ```
 
