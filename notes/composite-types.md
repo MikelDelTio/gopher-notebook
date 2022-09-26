@@ -8,6 +8,8 @@ The following page hosts the best practises and conventions about Go composite t
     - [Initialization](composite-types.md#structs---initialization)
     - [Fields Ordering](composite-types.md#structs---fields-ordering)
     - [Marshalling & Unmarshalling](composite-types.md#structs---marshalling--unmarshalling)
+- [Arrays](composite-types.md#arrays)
+    - [Limitation](composite-types.md#arrays---limitation)
 - [Maps](composite-types.md#maps)
     - [Initialization](composite-types.md#maps---initialization)
 - [Interfaces](composite-types.md#interfaces)
@@ -137,6 +139,38 @@ Sources:
 
 - [Learning Go by Jon Bodner](https://www.oreilly.com/library/view/learning-go/9781492077206/)
 - [Uber Go Style Guide](https://github.com/uber-go/guide/blob/master/style.md#use-field-tags-in-marshaled-structs)
+
+## Arrays
+
+The following section hosts the best practises and conventions about Go arrays.
+
+### Arrays - Limitation
+
+As most programming languages, Go has support for arrays, but rarely are directly used, since the size is part of the
+type itself.
+
+This implies that the size should be explicitly defined at compile time, and it cannot be expanded or reduced at
+runtime. Furthermore, an array declared as ```[5]string``` will be different type from an array that is declared
+as ```[2]string```.
+
+```go
+var x [5]string
+var y [2]string
+
+fmt.Println(x == y) // Error, invalid operation: x == y (mismatched types [5]string and [2]string)
+```
+
+Due to these limitations, arrays are hardly ever employed, except in those cases in which the exact length is known
+ahead of time, and they can result useful to improve the performance avoiding some memory allocations. For example, in
+cryptographic functions where response time is critical and the size of checksum is defined as part of the algorithm.
+
+As said, this is the exception, not the rule, so its use is discouraged. The main reason why arrays exist in Go is to
+provide the backing store for slices.
+
+Sources:
+
+- [Effective Go](https://go.dev/doc/effective_go#arrays)
+- [Learning Go by Jon Bodner](https://www.oreilly.com/library/view/learning-go/9781492077206/)
 
 ## Maps
 
