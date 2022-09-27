@@ -9,6 +9,7 @@ The following page hosts the best practises and conventions about Go program str
 - [Variables](program-structure.md#variables)
     - [Naming](program-structure.md#variables---naming)
     - [Declaration](program-structure.md#variables---declaration)
+    - [Scope](program-structure.md#variables---scope)
 
 ## Packages
 
@@ -208,3 +209,55 @@ Sources:
 
 - [Learning Go by Jon Bodner](https://www.oreilly.com/library/view/learning-go/9781492077206/)
 - [The Go Programming Language by Alan A. A. Donovan and Brian W. Kernighan](https://www.gopl.io)
+
+### Variables - Scope
+
+As well as in any other programming languages, it is a best practice in Go to reduce the scope of the variables, so that
+they are only visible in the scope where they are used, favoring code readability and maintainability, and ultimately,
+reducing the probability of bugs caused by oversights.
+
+That's why it is a convention among Go community to declare return error variables directly in the "if" statements, in
+those functions in which no additional parameter is returned, reducing the amount of code that is nested multiple
+levels, and guarantying that error cases are [handled first](errors.md#handling).
+
+```go
+// Bad, err variable lives during the execution of the entire function
+err := os.write([]byte("hello\ngo\n"))                  
+if err != nil {
+    return err
+}
+
+// Good
+if err := os.write([]byte("hello\ngo\n")); err != nil {
+    return err
+}
+```
+
+Note that it is essential to do not use this technique when multiple parameters are returned, since error case is not
+first handled, and indents the "happy path", which should ideally always be in the first level.
+
+```go
+// Bad, error is not first handled and happy path is indented
+if f, err := os.Open(filename); err == nil {  
+    scanner := bufio.NewScanner(f)
+    for scanner.Scan() {
+        fmt.Println(scanner.Text())
+    }
+} else {
+    return err
+}
+
+// Good
+f, err := os.Open(filename)                   
+if err == nil { 
+    return err
+}
+scanner := bufio.NewScanner(f)
+for scanner.Scan() {
+    fmt.Println(scanner.Text())
+}
+```
+
+Sources:
+
+- [Uber Go Style Guide](https://github.com/uber-go/guide/blob/master/style.md#reduce-scope-of-variables)
