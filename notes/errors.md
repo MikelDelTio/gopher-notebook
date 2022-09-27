@@ -188,8 +188,8 @@ func main() {
 		if err := recover(); r != nil {
 			log.Fatal(err)
 		}
+	    panic("something irrecoverable happens")
 	}()
-	panic("something irrecoverable happens")
 }
 ```
 
