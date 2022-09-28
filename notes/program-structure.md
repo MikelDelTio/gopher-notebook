@@ -233,8 +233,9 @@ if err := os.write([]byte("hello\ngo\n")); err != nil {
 }
 ```
 
-Note that it is essential to do not use this technique when multiple parameters are returned, since error case is not
-first handled, and indents the "happy path", which should ideally always be in the first level.
+Note that this technique should not be used when multiple parameters are returned, since error case is not
+first handled, and indents the "happy path", which in Go applications should ideally always be in the first level.
+The latter applies regardless of the number of return variables.
 
 ```go
 // Bad, error is not first handled and happy path is indented
